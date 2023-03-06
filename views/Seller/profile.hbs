@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {{>admin_style}}
+    <title>Qodemart - Profile</title>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {{>seller_sidebar}}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {{>seller_top_bar}}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+                    </div>
+                    <p class="mb-4">The best way to predict your future is to create it</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <form class=" mr-auto w-100 navbar-search">
+                                <div class="row" >
+                                    <div class="col-sm-4">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                        placeholder="Eg- Shashwat Mohite"><br>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Email</label>
+                                        <input type="number" class="form-control bg-light border-0 small"
+                                        placeholder="Eg- shashwat@gmail.com"><br>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Mobile No.</label>
+                                        <input type="number" class="form-control bg-light border-0 small"
+                                        placeholder="Eg- (+91) 9090909090"><br>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col-sm-4">
+                                        <label>Pincode</label>
+                                        <input type="number" class="form-control bg-light border-0 small"
+                                        placeholder="Eg- 452001">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>City</label>
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                        placeholder="Eg- Indore">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>State</label>
+                                        <select type="number" class="form-control bg-light border-0 small">
+                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                            <option value="Assam">Assam</option>
+                                            <option value="Bihar">Bihar</option>
+                                            <option value="Chandigarh">Chandigarh</option>
+                                            <option value="Chhattisgarh">Chhattisgarh</option>
+                                            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                            <option value="Daman and Diu">Daman and Diu</option>
+                                            <option value="Delhi">Delhi</option>
+                                            <option value="Lakshadweep">Lakshadweep</option>
+                                            <option value="Puducherry">Puducherry</option>
+                                            <option value="Goa">Goa</option>
+                                            <option value="Gujarat">Gujarat</option>
+                                            <option value="Haryana">Haryana</option>
+                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                            <option value="Jharkhand">Jharkhand</option>
+                                            <option value="Karnataka">Karnataka</option>
+                                            <option value="Kerala">Kerala</option>
+                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            <option value="Maharashtra">Maharashtra</option>
+                                            <option value="Manipur">Manipur</option>
+                                            <option value="Meghalaya">Meghalaya</option>
+                                            <option value="Mizoram">Mizoram</option>
+                                            <option value="Nagaland">Nagaland</option>
+                                            <option value="Odisha">Odisha</option>
+                                            <option value="Punjab">Punjab</option>
+                                            <option value="Rajasthan">Rajasthan</option>
+                                            <option value="Sikkim">Sikkim</option>
+                                            <option value="Tamil Nadu">Tamil Nadu</option>
+                                            <option value="Telangana">Telangana</option>
+                                            <option value="Tripura">Tripura</option>
+                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                            <option value="Uttarakhand">Uttarakhand</option>
+                                            <option value="West Bengal">West Bengal</option>
+                                        </select>   
+                                    </div>
+                                </div>
+                                <br>
+                                 <div class="row" >
+                                    <div class="col-sm-4">
+                                        <label>GST No.</label>
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                        placeholder="Eg- OX7876554Z1">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Shop Address</label>
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                        placeholder="304 - Somware, xyz colony, Mumbai">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Submit</label>
+                                        <button class="btn btn-block btn-info">Submit Profile</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {{>admin_footer}}
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scripts Start -->
+    {{>admin_scripts}}
+    <!-- Scripts End -->
+
+</body>
+
+</html>

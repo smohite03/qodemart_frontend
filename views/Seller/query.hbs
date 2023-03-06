@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {{>admin_style}}
+    <title>Qodemart - Query</title>
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {{>seller_sidebar}}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {{>seller_top_bar}}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Queries</h1>
+                    </div>
+                    <p class="mb-4">We love to hear from our customers. Your feedback helps us to constantly improve our service.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Query</th>
+                                            <th>Customer Want</th>
+                                            <th>Response</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Query</th>
+                                            <th>Customer Want</th>
+                                            <th>Response</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>1001</td>
+                                            <td>Worst Product</td>
+                                            <td><button class="btn btn-sm btn-danger">Return</button></td>
+                                            <td>
+                                                <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Eg- Your Message"><br>
+                                            </td>
+                                            <td><button class="btn btn-sm btn-success">Resolve Query</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            {{>admin_footer}}
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scripts Start -->
+    {{>admin_scripts}}
+    <!-- Scripts End -->
+
+</body>
+
+</html>
