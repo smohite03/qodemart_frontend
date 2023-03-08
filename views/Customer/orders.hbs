@@ -69,14 +69,13 @@
                                             <td>23/03/2001</td>
                                             <td>30/03/2001</td>
                                             <td><button class="btn btn-sm btn-warning">In Transit</button></td>
-                                            <td><a href="#" data-toggle="modal" data-target="#queryModal" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">Query</a> <button class="btn btn-success btn-sm">View</button> <button class="btn btn-danger btn-sm">Cancel</button></td>
+                                            <td><button class="btn btn-success btn-sm">View</button> <button class="btn btn-danger btn-sm">Cancel</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -96,41 +95,6 @@
     <!-- Scripts Start -->
     {{>admin_scripts}}
     <!-- Scripts End -->
-    <div class="modal fade" id="queryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Raise a new Query</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class=" mr-auto w-100 navbar-search">
-                            <label>Query</label>
-                            <select type="text" class="form-control bg-light border-0 small"
-                                placeholder="Order">
-                                <option value="Doesn't look good on me">Doesn't look good on me</option>
-                                <option value="Doesn't like the product">Doesn't like the product</option>
-                                <option value="Product quality is poor">Product quality is poor</option>
-                                <option value="Recived a defective product">Recived a defective product</option>
-                                <option value="Recived a different product">Recived a different product</option>
-                            </select><br>
-                            <label>Want To</label>
-                            <select type="text" class="form-control bg-light border-0 small"
-                                placeholder="Order">
-                                <option value="Refund">Refund / Return</option>
-                                <option value="Replace">Replace</option>
-                            </select>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-info" onclick="submitQuery();">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 </body>

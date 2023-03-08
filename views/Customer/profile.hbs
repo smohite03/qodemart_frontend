@@ -8,7 +8,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="getCustomerProdiledata();">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -46,34 +46,34 @@
                                 <div class="row" >
                                     <div class="col-sm-4">
                                         <label>Name</label>
-                                        <input type="text" class="form-control bg-light border-0 small"
+                                        <input type="text" id="name" class="form-control bg-light border-0 small"
                                         placeholder="Eg- Shashwat Mohite"><br>
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Email</label>
-                                        <input type="number" class="form-control bg-light border-0 small"
+                                        <input type="text" id="email" class="form-control bg-light border-0 small"
                                         placeholder="Eg- shashwat@gmail.com"><br>
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Mobile No.</label>
-                                        <input type="number" class="form-control bg-light border-0 small"
+                                        <input type="number" id="phone" class="form-control bg-light border-0 small"
                                         placeholder="Eg- (+91) 9090909090"><br>
                                     </div>
                                 </div>
                                 <div class="row" >
                                     <div class="col-sm-4">
                                         <label>Pincode</label>
-                                        <input type="number" class="form-control bg-light border-0 small"
+                                        <input type="number" id="pincode" class="form-control bg-light border-0 small"
                                         placeholder="Eg- 452001">
                                     </div>
                                     <div class="col-sm-4">
                                         <label>City</label>
-                                        <input type="text" class="form-control bg-light border-0 small"
+                                        <input type="text" id="city" class="form-control bg-light border-0 small"
                                         placeholder="Eg- Indore">
                                     </div>
                                     <div class="col-sm-4">
                                         <label>State</label>
-                                        <select type="number" class="form-control bg-light border-0 small">
+                                        <select type="number" id="state" class="form-control bg-light border-0 small">
                                             <option value="Andhra Pradesh">Andhra Pradesh</option>
                                             <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                                             <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -117,12 +117,12 @@
                                  <div class="row">
                                     <div class="col-sm-8">
                                         <label>Address</label>
-                                        <input type="Address" class="form-control bg-light border-0 small"
+                                        <input type="Address" id="address" class="form-control bg-light border-0 small"
                                         placeholder="304 - Somware, xyz colony, Mumbai">
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Submit</label>
-                                        <button class="btn btn-block btn-info">Submit Profile</button>
+                                        <button type="button" class="btn btn-block btn-info" onclick="submitCustomerprofile();">Submit Profile</button>
                                     </div>
                                 </div>
                             </form>

@@ -4,6 +4,7 @@ import hbs from 'hbs';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import crm from './api/routes/crm';
+import webRoutes from './api/routes/webRoutes';
 import crmCustomer from './api/routes/customer';
 import crmSeller from './api/routes/seller';
 
@@ -37,34 +38,11 @@ app.use((req, res, next) => {
 // Serve Static Files
 app.use('/static', express.static('public'));
 
-// Qodemart main websites
-app.get('/', (req, res) => {
-  res.render(path.join(dirname, './views/index.hbs'));
-});
-
-app.get('/shop', (req, res) => {
-  res.render(path.join(dirname, './views/shop.hbs'));
-});
-
-app.get('/detail', (req, res) => {
-  res.render(path.join(dirname, './views/detail.hbs'));
-});
-
-app.get('/cart', (req, res) => {
-  res.render(path.join(dirname, './views/cart.hbs'));
-});
-
-app.get('/checkout', (req, res) => {
-  res.render(path.join(dirname, './views/checkout.hbs'));
-});
-
-app.get('/contact', (req, res) => {
-  res.render(path.join(dirname, './views/contact.hbs'));
-});
-
-// To Serve CRM
 // To serve user queries
+app.use('/', webRoutes);
 app.use('/crm', crm);
+
+// Get saved data from sessionStorage
 app.use('/crm/customer', crmCustomer);
 app.use('/crm/seller', crmSeller);
 
