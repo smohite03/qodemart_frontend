@@ -4,11 +4,11 @@
 <head>
 
     {{>admin_style}}
-    <title>Qodemart - Query</title>
+    <title>Qodemart - Products</title>
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="showAllproduct();">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -48,7 +48,7 @@
                                             <th>Product ID</th>
                                             <th>Product Name</th>
                                             <th>Product Rate</th>
-                                            <th>Product Quantity</th>
+                                            <th>Product Category</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -57,18 +57,11 @@
                                             <th>Product ID</th>
                                             <th>Product Name</th>
                                             <th>Product Rate</th>
-                                            <th>Product Quantity</th>
+                                            <th>Product Category</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>1001</td>
-                                            <td>Shoes</td>
-                                            <td>150 Rs</td>
-                                            <td>10</td>
-                                            <td><button class="btn btn-sm btn-success">Edit</button> <button class="btn btn-sm btn-danger">Delete</button></td>
-                                        </tr>
+                                    <tbody id="productSeller">
                                     </tbody>
                                 </table>
                             </div>
