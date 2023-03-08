@@ -3,6 +3,7 @@ import path from 'path';
 import hbs from 'hbs';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import session from 'express-session';
 import crm from './api/routes/crm';
 import crmCustomer from './api/routes/customer';
 import crmSeller from './api/routes/seller';
@@ -22,6 +23,12 @@ app.use(morgan('dev'));
 // For body parsing
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(session({
+  secret: 'qwertyuiop',
+  resave: true,
+  saveUninitialized: true,
+}));
 
 // To handle CORS Errors
 app.use((req, res, next) => {

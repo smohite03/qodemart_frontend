@@ -1,2 +1,0 @@
-# qodemart
-A eccommerce website
