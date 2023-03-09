@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import hbs from 'hbs';
 import morgan from 'morgan';
+import multer from 'multer';
 import bodyParser from 'body-parser';
 import crm from './api/routes/crm';
 import webRoutes from './api/routes/webRoutes';
@@ -35,8 +36,24 @@ app.use((req, res, next) => {
   next();
 });
 
+var fileObj = {};
 // Serve Static Files
 app.use('/static', express.static('public'));
+
+//Upload Files
+const Storage = multer.diskStorage({
+  destination:"./public/uploads/",
+  filename:(req,file,cb)=>{
+      cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname));
+      fileObj = file.fieldname+"_"+Date.now()+path.extname(file.originalname);
+  }
+})
+
+let upload = multer({storage:Storage});
+
+app.post('/upload', upload.single('image') ,(req, res) => {
+  res.send(fileObj);
+})
 
 // To serve user queries
 app.use('/', webRoutes);
