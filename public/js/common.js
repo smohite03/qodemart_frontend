@@ -573,3 +573,56 @@ function checkoutOrder()
 function contact(){
     checklogin();
 }
+
+function submitProduct(){
+    const productName = $('#productName').val();
+    const productRate = $('#productRate').val();
+    const productCategory = $('#productCategory').val();
+    const productImage = $('#productImage').val();
+    const productDiscription = $('#productDiscription').val();
+    if(productName == " "){
+        alert("Please enter a product name");
+    }else if(productRate == " "){
+        alert("Please enter a product rate");
+    }else if(productDiscription == " "){
+        alert("Please enter a product discription");
+    }
+
+    const fileInput = $('#productImage')[0];
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    $.ajax({
+        type: 'POST',
+        url: '/upload',
+        data: formData,
+        dataType: "text",
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            product = {
+                "sellerId": sessionStorage.getItem("UserID"),
+                "imgpath": '/static/uploads/' + data,
+                "productName": productName,
+                "productRate": productRate,
+                "productDiscription": productDiscription,
+                "productCategory": productCategory
+              }
+              $.ajax({
+                async: true,
+                type: "POST",
+                url: ""+url+"product",
+                headers: {
+                    authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+                },
+                data: product,
+                dataType: "text",
+                success: function(resultData){
+                    alert(resultData);
+                    window.location.href = "/crm/seller/products";
+                }
+            });
+        },
+      });
+}
