@@ -8,7 +8,7 @@ To install and run the frontend code, follow these steps:
 2. Navigate to the cloned repository directory in your terminal.
 3. Run npm install to install the necessary dependencies.
 4. Run npm start to start the development server.
-5. Open your web browser and go to http://localhost:3000 to view the app.
+5. Open your web browser and go to http://localhost:8000 to view the app.
 
 ## Features
 The QodeMart frontend includes the following features:
