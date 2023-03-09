@@ -6,7 +6,7 @@
     <title>Qodemart</title>
 </head>
 
-<body>
+<body onload="checklogin();">
     <!-- Navbar Start -->
     {{>navbar}}
     <!-- Navbar End -->
@@ -14,7 +14,8 @@
     <!-- Carousel End -->
     <div class="container-fluid">
         <div class="row px-xl-5">
-            <div class="col-lg-12">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" style="height: 410px;">
@@ -90,56 +91,50 @@
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="/category?category=Men's Fasion" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="static/img/cat-1.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">Men's Fasion</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="/category?category=Women's Fasion" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="static/img/cat-2.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">Women's Fasion</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="/category?category=Kitchen" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="static/img/cat-3.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">Home & Kitchen</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="/category?category=Electronics" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="static/img/cat-4.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Accerssories</h5>
+                    <h5 class="font-weight-semi-bold m-0">Electronics</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="/category?category=Toys" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="static/img/cat-5.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Bags</h5>
+                    <h5 class="font-weight-semi-bold m-0">Toys</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                    <a href="/category?category=Food" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="static/img/cat-6.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Shoes</h5>
+                    <h5 class="font-weight-semi-bold m-0">Food & Beverages</h5>
                 </div>
             </div>
         </div>
@@ -173,38 +168,13 @@
     </div>
     <!-- Offer End -->
 
-    <!-- Products Start -->
-    <div class="container-fluid pt-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
-        </div>
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="card product-item border-0 mb-4">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="static/img/product-8.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                    </div>
-                    <button href="" style="text-align: center" class="card-footer d-flex bg-primary border">
-                        View Product Details
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Products End -->
-
     <!-- Footer Start -->
     {{>footer}}
     <!-- Footer End -->
 
     <!-- JavaScript Libraries -->
     {{>front_scripts}}
+    {{>admin_scripts}}
 </body>
 
 </html>
