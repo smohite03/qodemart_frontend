@@ -1,4 +1,20 @@
 /*eslint-disable*/
+const url = 'http://localhost:3000/';
+function checklogin(){
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
+}
+function setSession(){
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid == null || token == null){
+        alert("Unauthorized User Please Login");
+        window.location.href = "/crm";
+    }
+}
 function register()
 {
     const fname = $('#fname').val();
@@ -28,7 +44,7 @@ function register()
     
       var saveData = $.ajax({
         type: "POST",
-        url: "http://localhost:3000/user",
+        url: ""+url+"user",
         data: user,
         dataType: "json",
         success: function(resultData){
@@ -53,7 +69,7 @@ function login()
     
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/user/login",
+        url: ""+url+"user/login",
         data: user,
         dataType: "json",
         success: function(resultData){
@@ -73,29 +89,11 @@ function login()
 }
 function getCustomerDashboarddata()
 {
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid == null || token == null){
-        alert("Unauthorized User Please Login");
-        window.location.href = "/crm";
-    }
+    setSession()
 }
 function getsellerDashboarddata()
 {
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid == null || token == null){
-        alert("Unauthorized User Please Login");
-        window.location.href = "/crm";
-    }
-}
-function setSession(){
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid == null || token == null){
-        alert("Unauthorized User Please Login");
-        window.location.href = "/crm";
-    }
+    setSession();
 }
 function submitCustomerprofile()
 {
@@ -131,7 +129,7 @@ function submitCustomerprofile()
     $.ajax({
         async: true,
         type: "PUT",
-        url: "http://localhost:3000/customer/profile",
+        url: ""+url+"customer/profile",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -179,7 +177,7 @@ function submitSellerprofile()
     $.ajax({
         async: true,
         type: "PUT",
-        url: "http://localhost:3000/seller/profile",
+        url: ""+url+"seller/profile",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -195,7 +193,7 @@ function submitSellerprofile()
 function getCustomerProdiledata(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/customer/profile?customerId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"customer/profile?customerId="+sessionStorage.getItem("UserID")+"",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -220,7 +218,7 @@ function getCustomerProdiledata(){
 function getSellerProfiledata(){
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/seller/profile?sellerId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"seller/profile?sellerId="+sessionStorage.getItem("UserID")+"",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -245,16 +243,12 @@ function getSellerProfiledata(){
 
 function getallproduct()
 {
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
+    checklogin();
     var productArray = [];
     let page = 1;
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/product/"+page+"",
+        url: ""+url+"product/"+page+"",
         dataType: "json",
         success: function(resultData){
             Object.keys(resultData).forEach(key => {
@@ -269,11 +263,7 @@ function getallproduct()
 
 function getallproductbyCategory()
 {
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
+    checklogin();
     const urlParams = new URLSearchParams(location.search);
     let category = 0;
     for (const [key, value] of urlParams) {
@@ -283,7 +273,7 @@ function getallproductbyCategory()
     var productArray = [];
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/product/category?category="+category+"",
+        url: ""+url+"product/category?category="+category+"",
         dataType: "json",
         success: function(resultData){
             Object.keys(resultData).forEach(key => {
@@ -297,11 +287,7 @@ function getallproductbyCategory()
 }
 
 function showproductdetail(){
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
+    checklogin();
     const urlParams = new URLSearchParams(location.search);
     let id = 0;
     for (const [key, value] of urlParams) {
@@ -309,7 +295,7 @@ function showproductdetail(){
     }
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/product/item/?id="+id+"",
+        url: ""+url+"product/item/?id="+id+"",
         dataType: "json",
         success: function(resultData){
             product = '<div class="col-lg-5 pb-5"><div id="product-carousel" class="carousel slide" data-ride="carousel"><div class="carousel-inner border"><div class="carousel-item active"><img class="w-100 h-100" src="'+resultData[0].imgpath+'" alt="Image"></div></div></div></div><div class="col-lg-7 pb-5"><h3 class="font-weight-semi-bold">'+resultData[0].productName+'<input value="'+resultData[0].productName+'" id="productid" hidden></h3><h3 class="font-weight-semi-bold mb-4">Rs '+resultData[0].productRate+'</h3><p class="mb-4">'+resultData[0].productDiscription+'</p></p><div class="d-flex align-items-center mb-4 pt-2"><div class="input-group quantity mr-3" style="width: 130px;"><div class="input-group-btn"><input type="text" class="form-control bg-secondary text-center" id="quantity" value="1"></div><button class="btn btn-primary px-3" onclick="addtoCart('+resultData[0].id+')"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button></div></div><input id="productrate" value = "'+resultData[0].productRate+'" hidden/> ';
@@ -323,7 +309,7 @@ function showAllproduct()
     var productArray = [];
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/product/seller/?sellerId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"product/seller/?sellerId="+sessionStorage.getItem("UserID")+"",
         dataType: "json",
         success: function(resultData){
             Object.keys(resultData).forEach(key => {
@@ -344,7 +330,7 @@ function showAllproduct()
 function deleteProduct(ProductId){
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:3000/product/item/?id="+ProductId+"",
+        url: ""+url+"product/item/?id="+ProductId+"",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -369,7 +355,7 @@ function getOrderbySeller()
     var orderArray = [];
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/order/seller?sellerId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"order/seller?sellerId="+sessionStorage.getItem("UserID")+"",
         dataType: "json",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
@@ -378,7 +364,7 @@ function getOrderbySeller()
             Object.keys(resultData).forEach(key => {
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:3000/customer/profile?customerId="+resultData[key].custId+"",
+                    url: ""+url+"customer/profile?customerId="+resultData[key].custId+"",
                     headers: {
                         authorization: 'Bearer ' + sessionStorage.getItem("Token"),
                     },
@@ -408,7 +394,7 @@ function getOrderbyCustomer()
     var orderArray = [];
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/order/customer?custId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"order/customer?custId="+sessionStorage.getItem("UserID")+"",
         dataType: "json",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
@@ -437,7 +423,7 @@ function showProductsofOrder(orderId)
     var productArray = [];
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/order/?orderId="+orderId+"",
+        url: ""+url+"order/?orderId="+orderId+"",
         dataType: "json",
         success: function(resultData){
             var productsString =  resultData[0].productIds;
@@ -446,7 +432,7 @@ function showProductsofOrder(orderId)
             for (let i = 0; i < products.length; i++) {
                 $.ajax({
                     type: "GET",
-                    url: "http://localhost:3000/product/item/?id="+products[i].product+"",
+                    url: ""+url+"product/item/?id="+products[i].product+"",
                     dataType: "json",
                     success: function(resultData){
                         product = '<tr><td>'+sno+'</td><td>'+resultData[0].productName+'</td><td>'+resultData[0].productCategory+'</td><td>'+resultData[0].productRate+'</td><td>'+products[i].quantity+'</td><td>'+products[i].quantity * resultData[0].productRate+'</td></tr>';
@@ -484,7 +470,7 @@ function addtoCart(ProductID)
       }
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/cart",
+        url: ""+url+"cart",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -503,11 +489,7 @@ function addtoCart(ProductID)
 }
 
 function viewCustomerCart() {
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
+    checklogin();
     var productArr = [];
     var total = 0;
     var userid = sessionStorage.getItem("UserID");
@@ -517,7 +499,7 @@ function viewCustomerCart() {
     }
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/cart/?custId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"cart/?custId="+sessionStorage.getItem("UserID")+"",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -545,7 +527,7 @@ function clearPastUserDetails()
     sessionStorage.clear();
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/user/logout",
+        url: ""+url+"user/logout",
         dataType: "json",
         success: function(resultData){
             console.log("Logout Sccessfully");
@@ -555,11 +537,7 @@ function clearPastUserDetails()
 
 function checkoutOrder()
 {
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
+    checklogin();
     var productArr = [];
     var total = 0;
     var userid = sessionStorage.getItem("UserID");
@@ -569,7 +547,7 @@ function checkoutOrder()
     }
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/cart/?custId="+sessionStorage.getItem("UserID")+"",
+        url: ""+url+"cart/?custId="+sessionStorage.getItem("UserID")+"",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
@@ -592,18 +570,6 @@ function checkoutOrder()
     });
 }
 
-function checklogin(){
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
-}
-
 function contact(){
-    var userid = sessionStorage.getItem("UserID");
-    var token = sessionStorage.getItem("Token");
-    if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
-    }
+    checklogin();
 }
