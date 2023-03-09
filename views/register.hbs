@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
      {{>admin_style}}
-    <title>Qodemart - Login</title>
+    <title>Qodemart - Register</title>
 </head>
 
 <body class="bg-gradient-primary">
@@ -16,31 +16,31 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" action="/crm/register" method="post" >
+                            <form class="user">
                                 <div class="form-group row">
                                     <div class="col-sm-4 mb-3 mb-sm-0">
                                         <label>Full Name</label>
-                                        <input type="text" class="form-control" name="name" placeholder="Full Name" title="Please Enter Full Name" required>
+                                        <input type="text" class="form-control" id="fname" placeholder="Full Name">
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Email</label>
-                                        <input type="email" class="form-control" name="email" pattern="^[a-z0-9]+@[a-z]+[.][a-z]+$" placeholder="Enter Email Here" title="Email should contain only one @" required>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter Email Here">
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Phone</label>
-                                        <input type="text" class="form-control" name="phone" pattern="^[0-9]{10}$" title="Please enter mobile number of 10 digits" placeholder="Phone Number" required>
+                                        <input type="text" class="form-control" id="phone" placeholder="Phone Number">
                                         <br>
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Gender</label>
-                                        <select class="form-control" name="gender">
+                                        <select class="form-control" id="gender">
                                             <option value="Male" selected>Male</option>
                                             <option value="Female">Female</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-4">
                                         <label>Role</label>
-                                        <select class="form-control" name="role">
+                                        <select class="form-control" id="role">
                                             <option value="Customer" selected>Customer</option>
                                             <option value="Seller">Seller</option>
                                         </select>
@@ -48,17 +48,14 @@
                                     <div class="col-sm-4">
                                         <label>Password</label>
                                          <input type="password" class="form-control"
-                                            name="password" placeholder="Repeat Password" pattern="[A-Za-z0-9#\-@.$*]{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                            id="password" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <button type="button" class="btn btn-primary btn-user btn-block" onclick="register();">
                                     Register Account
                                 </button>
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="/crm/forgot-password">Forgot Password?</a>
-                            </div>
                             <div class="text-center">
                                 <a class="small" href="/crm">Already have an account? Login!</a>
                             </div>
