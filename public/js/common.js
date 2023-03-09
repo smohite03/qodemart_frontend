@@ -245,6 +245,11 @@ function getSellerProfiledata(){
 
 function getallproduct()
 {
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
     var productArray = [];
     let page = 1;
     $.ajax({
@@ -264,6 +269,11 @@ function getallproduct()
 
 function getallproductbyCategory()
 {
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
     const urlParams = new URLSearchParams(location.search);
     let category = 0;
     for (const [key, value] of urlParams) {
@@ -287,6 +297,11 @@ function getallproductbyCategory()
 }
 
 function showproductdetail(){
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
     const urlParams = new URLSearchParams(location.search);
     let id = 0;
     for (const [key, value] of urlParams) {
@@ -488,6 +503,11 @@ function addtoCart(ProductID)
 }
 
 function viewCustomerCart() {
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
     var productArr = [];
     var total = 0;
     var userid = sessionStorage.getItem("UserID");
@@ -535,6 +555,11 @@ function clearPastUserDetails()
 
 function checkoutOrder()
 {
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
     var productArr = [];
     var total = 0;
     var userid = sessionStorage.getItem("UserID");
@@ -565,4 +590,20 @@ function checkoutOrder()
             }
          }
     });
+}
+
+function checklogin(){
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
+}
+
+function contact(){
+    var userid = sessionStorage.getItem("UserID");
+    var token = sessionStorage.getItem("Token");
+    if(userid != null || token != null){
+        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+    }
 }
