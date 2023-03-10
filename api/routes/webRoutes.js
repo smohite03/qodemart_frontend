@@ -12,6 +12,10 @@ router.get('/shop', (req, res) => {
     res.render(path.join(dirname, './views/shop.hbs'));
 });
 
+router.get('/category', (req, res) => {
+    res.render(path.join(dirname, './views/category.hbs'));
+});
+
 router.get('/detail', (req, res) => {
     res.render(path.join(dirname, './views/detail.hbs'));
 });
