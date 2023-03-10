@@ -2,6 +2,7 @@
 const url = 'http://localhost:3000/';
 function checklogin(){
     var userid = sessionStorage.getItem("UserID");
+    var email = sessionStorage.getItem("email");
     var token = sessionStorage.getItem("Token");
     var role = sessionStorage.getItem("role");
     if(userid != null || token != null){
@@ -10,7 +11,7 @@ function checklogin(){
         }else{
             $('#loginstatus').html('<a href="/crm/seller/dashboard">Already Loged In</a>')
         }
-       
+        $('#username').html(email);
     }
 }
 function setSession(){
@@ -20,6 +21,8 @@ function setSession(){
         alert("Unauthorized User Please Login");
         window.location.href = "/crm";
     }
+    var email = sessionStorage.getItem("email");
+    $('#username').html(email);
 }
 function register()
 {
@@ -196,6 +199,7 @@ function submitSellerprofile()
 }
 
 function getCustomerProdiledata(){
+    setSession();
     $.ajax({
         type: "GET",
         url: ""+url+"customer/profile?customerId="+sessionStorage.getItem("UserID")+"",
@@ -221,6 +225,7 @@ function getCustomerProdiledata(){
 }
 
 function getSellerProfiledata(){
+    setSession();
     $.ajax({
         type: "GET",
         url: ""+url+"seller/profile?sellerId="+sessionStorage.getItem("UserID")+"",
@@ -309,6 +314,7 @@ function showproductdetail(){
 
 function showAllproduct()
 {
+    setSession();
     var productArray = [];
     $.ajax({
         type: "GET",
@@ -352,6 +358,7 @@ function deleteProduct(ProductId){
 
 function getOrderbySeller()
 {
+    setSession();
     let customername;
     var customerphone;
     var customeraddress;
@@ -394,6 +401,7 @@ function getOrderbySeller()
 
 function getOrderbyCustomer()
 {
+    setSession();
     var orderArray = [];
     $.ajax({
         type: "GET",
