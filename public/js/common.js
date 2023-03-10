@@ -3,8 +3,14 @@ const url = 'http://localhost:3000/';
 function checklogin(){
     var userid = sessionStorage.getItem("UserID");
     var token = sessionStorage.getItem("Token");
+    var role = sessionStorage.getItem("role");
     if(userid != null || token != null){
-        $('#loginstatus').html('<h6 href="">Already Loged In</h6>')
+        if(role == "Customer"){
+            $('#loginstatus').html('<a href="/crm/customer/dashboard">Already Loged In</a>')
+        }else{
+            $('#loginstatus').html('<a href="/crm/seller/dashboard">Already Loged In</a>')
+        }
+       
     }
 }
 function setSession(){
@@ -104,7 +110,6 @@ function submitCustomerprofile()
     const city = $('#city').val();
     const state = $('#state').val();
     const address = $('#address').val();
-    alert(address);
     var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (!validRegex.test(email)) {
         alert("Please enter a valid email address");
@@ -240,7 +245,6 @@ function getSellerProfiledata(){
          }
     });
 }
-
 function getallproduct()
 {
     checklogin();
@@ -260,7 +264,6 @@ function getallproduct()
         }
     });
 }
-
 function getallproductbyCategory()
 {
     checklogin();
@@ -364,7 +367,7 @@ function getOrderbySeller()
             Object.keys(resultData).forEach(key => {
                 $.ajax({
                     type: "GET",
-                    url: ""+url+"customer/profile?customerId="+resultData[key].custId+"",
+                    url: ""+url+"customer/profile?customerId="+resultData[key].customerId+"",
                     headers: {
                         authorization: 'Bearer ' + sessionStorage.getItem("Token"),
                     },
@@ -454,6 +457,11 @@ function showProductsofOrder(orderId)
 function addtoCart(ProductID)
 {
     var userid = sessionStorage.getItem("UserID");
+    var role = sessionStorage.getItem("role");
+    if(role == "Seller"){
+        alert("You Cannot add Products To Cart Please Login as Customer To Do So"); 
+        return;
+    }
     if(userid == null){
         alert("Please Login Before To Add Product");
         window.location.href = "/crm";
@@ -505,13 +513,19 @@ function viewCustomerCart() {
         },
         dataType: "json",
         success: function(resultData){
-            Object.keys(resultData).forEach(key => {
-                total = total + resultData[key].productRate * resultData[key].productQuantity;
-                order = '<tr><td class="align-middle">'+resultData[key].productName+'</td><td class="align-middle">Rs '+resultData[key].productRate+'</td><td class="align-middle">'+resultData[key].productQuantity+'</td><td class="align-middle">Rs '+resultData[key].productRate * resultData[key].productQuantity+'</td><td class="align-middle"><button class="btn btn-sm btn-primary" onclick="removeItemfromCart()><i class="fa fa-times"></i>Delete</button></td></tr>';
-                productArr = productArr + order;
-                $('#total').html(total + ' Rs');
-                $('#cartvalues').html(productArr);
-            });
+            if(resultData.length == 0){
+                alert('Please Add Product To Cart');
+                $("#checkoutbtn").prop('disabled', true);
+            }else{
+                Object.keys(resultData).forEach(key => {
+                    total = total + resultData[key].productRate * resultData[key].productQuantity;
+                    order = '<tr><td class="align-middle">'+resultData[key].productName+'</td><td class="align-middle">Rs '+resultData[key].productRate+'</td><td class="align-middle">'+resultData[key].productQuantity+'</td><td class="align-middle">Rs '+resultData[key].productRate * resultData[key].productQuantity+'</td><td class="align-middle"><button class="btn btn-sm btn-primary" onclick="removeItemfromCart('+resultData[key].id+')"><i class="fa fa-times"></i> Delete</button></td></tr>';
+                    productArr = productArr + order;
+                    $('#total').html(total + ' Rs');
+                    $('#cartvalues').html(productArr);
+                });
+            }
+
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(errorThrown == "Forbidden"){
@@ -535,35 +549,22 @@ function clearPastUserDetails()
     });
 }
 
-function checkoutOrder()
+function removeItemfromCart(id)
 {
-    checklogin();
-    var productArr = [];
-    var total = 0;
-    var userid = sessionStorage.getItem("UserID");
-    if(userid == null){
-        alert("Please Login");
-        window.location.href = "/crm";
-    }
     $.ajax({
-        type: "GET",
-        url: ""+url+"cart/?custId="+sessionStorage.getItem("UserID")+"",
+        type: "DELETE",
+        url: ""+url+"cart?id="+id+"",
         headers: {
             authorization: 'Bearer ' + sessionStorage.getItem("Token"),
         },
-        dataType: "json",
+        dataType: "text",
         success: function(resultData){
-            Object.keys(resultData).forEach(key => {
-                total = total + resultData[key].productRate * resultData[key].productQuantity;
-                order = '<div class="d-flex justify-content-between"><p>'+resultData[key].productName+' '+resultData[key].productQuantity+'</p><p>Rs '+resultData[key].productRate+'</p></div>'
-                productArr = productArr + order;
-                $('#total').html(total + ' Rs');
-                $('#cartvalues').html(productArr);
-            });
+            alert("Cart Item Deleted Successfully");
+            window.location.href = "/cart";
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
             if(errorThrown == "Forbidden"){
-                alert("Unauthorize User Please Login");
+                alert("Unauthorize User Please Login")
                 window.location.href = "/crm";
             }
          }
@@ -625,4 +626,194 @@ function submitProduct(){
             });
         },
       });
+}
+
+function checkoutOrder()
+{
+    checklogin();
+    var productArr = [];
+    var total = 0;
+    var userid = sessionStorage.getItem("UserID");
+    if(userid == null){
+        alert("Please Login");
+        window.location.href = "/crm";
+    }
+    $.ajax({
+        type: "GET",
+        url: ""+url+"cart/?custId="+sessionStorage.getItem("UserID")+"",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        dataType: "json",
+        success: function(resultData){
+            Object.keys(resultData).forEach(key => {
+                total = total + resultData[key].productRate * resultData[key].productQuantity;
+                order = '<div class="d-flex justify-content-between"><p>'+resultData[key].productName+' '+resultData[key].productQuantity+'</p><p>Rs '+resultData[key].productRate+'</p></div>'
+                productArr = productArr + order;
+                $('#total').html(total + ' Rs');
+                $('#cartvalues').html(productArr);
+            });
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            if(errorThrown == "Forbidden"){
+                alert("Unauthorize User Please Login");
+                window.location.href = "/crm";
+            }
+         }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: ""+url+"customer/profile?customerId="+sessionStorage.getItem("UserID")+"",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        dataType: "json",
+        success: function(resultData){
+            $('#name').val(resultData.fullName);
+            $('#email').val(resultData.email);
+            $('#phone').val(resultData.phoneNumber);
+            $('#pincode').val(resultData.pincode)
+            $('#city').val(resultData.city);
+            $('#state').val(resultData.state);
+            $('#address').val(resultData.area);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            if(errorThrown == "Forbidden"){
+                window.location.href = "/crm";
+            }
+         }
+    });
+}
+
+function makeOrderArray(productId, productQuantity,  sellerId) {
+    console.log(productId, productQuantity, sellerId);
+    const custId = sessionStorage.getItem("UserID");
+    const OrderDesciption = $('#discription').val();
+    var orderArray = '[{ "product": '+productId+', "quantity": '+productQuantity+'}]';
+    const order = {
+        "custId": custId,
+        "sellerId": sellerId,
+        "productIds": orderArray,
+        "orderStatus": "Pending",
+        "paymentStatus": "Completed",
+        "OrderDesciption": OrderDesciption
+      };
+      console.log(order);
+      $.ajax({
+        type: "POST",
+        url: ""+url+"order",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        data: order,
+        dataType: "text",
+        success: function(resultData){
+            console.log("Order Created");
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Please Login Before Placing The Order");
+            if(errorThrown == "Forbidden"){
+                window.location.href = "/crm";
+            }
+         }
+    });
+     
+}
+
+function getSeller(productId, productQuantity){
+    $.ajax({
+        type: "GET",
+        url: ""+url+"product/item/?id="+productId+"",
+        dataType: "json",
+        success: function(resultData){
+            sellerId = resultData[0].sellerId;
+            makeOrderArray(productId, productQuantity, sellerId);
+        }
+    });
+}
+
+function placeOrder()
+{
+    var productarr = {};
+    $.ajax({
+        type: "GET",
+        url: ""+url+"cart/?custId="+sessionStorage.getItem("UserID")+"",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        dataType: "json",
+        success: function(resultData){
+            Object.keys(resultData).forEach(key => {
+                productId = resultData[key].productId;
+                productQuantity =  resultData[key].productQuantity;
+                getSeller(productId, productQuantity);
+            });
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            if(errorThrown == "Forbidden"){
+                alert("Unauthorize User Please Login");
+                window.location.href = "/crm";
+            }
+         }
+    });
+    clearcartvalues();
+}
+
+function clearcartvalues() {
+    $.ajax({
+        type: "DELETE",
+        url: ""+url+"cart/clear?custId="+sessionStorage.getItem("UserID")+"",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        dataType: "text",
+        success: function(resultData){
+            alert("Order Created Successfully");
+            window.location.href = "/crm/customer/orders";
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            if(errorThrown == "Forbidden"){
+                window.location.href = "/crm";
+            }
+         }
+    });
+}
+
+function deliveredOrder(orderID) {
+    statusOrder = {
+        "orderStatus": "Delivered",
+    }
+    $.ajax({
+        type: "PUT",
+        url: ""+url+"order/status?id="+orderID+"",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        data: statusOrder,
+        dataType: "text",
+        success: function(resultData){
+            alert("Order Status Updated Successfully");
+            window.location.href = "/crm/seller/orders";
+        }
+    });
+}
+
+function cancelOrder(orderID){
+    statusOrder = {
+        "orderStatus": "Canceled",
+    }
+    $.ajax({
+        type: "PUT",
+        url: ""+url+"order/status?id="+orderID+"",
+        headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem("Token"),
+        },
+        data: statusOrder,
+        dataType: "text",
+        success: function(resultData){
+            alert("Order Status Updated Successfully");
+            window.location.href = "/crm/seller/orders";
+        }
+    });
 }
