@@ -659,6 +659,7 @@ function checkoutOrder()
                 order = '<div class="d-flex justify-content-between"><p>'+resultData[key].productName+' '+resultData[key].productQuantity+'</p><p>Rs '+resultData[key].productRate+'</p></div>'
                 productArr = productArr + order;
                 $('#total').html(total + ' Rs');
+                $('#totalamt').val(total);
                 $('#cartvalues').html(productArr);
             });
         },
@@ -694,7 +695,7 @@ function checkoutOrder()
     });
 }
 
-function makeOrderArray(productId, productQuantity,  sellerId) {
+function makeOrderArray(productId, productQuantity, sellerId, paymentID) {
     console.log(productId, productQuantity, sellerId);
     const custId = sessionStorage.getItem("UserID");
     const OrderDesciption = $('#discription').val();
@@ -704,7 +705,7 @@ function makeOrderArray(productId, productQuantity,  sellerId) {
         "sellerId": sellerId,
         "productIds": orderArray,
         "orderStatus": "Pending",
-        "paymentStatus": "Completed",
+        "paymentStatus": paymentID,
         "OrderDesciption": OrderDesciption
       };
       console.log(order);
@@ -729,19 +730,19 @@ function makeOrderArray(productId, productQuantity,  sellerId) {
      
 }
 
-function getSeller(productId, productQuantity){
+function getSeller(productId, productQuantity, paymentID){
     $.ajax({
         type: "GET",
         url: ""+url+"product/item/?id="+productId+"",
         dataType: "json",
         success: function(resultData){
             sellerId = resultData[0].sellerId;
-            makeOrderArray(productId, productQuantity, sellerId);
+            makeOrderArray(productId, productQuantity, sellerId, paymentID);
         }
     });
 }
 
-function placeOrder()
+function placeOrder(paymentID)
 {
     var productarr = {};
     $.ajax({
@@ -755,7 +756,7 @@ function placeOrder()
             Object.keys(resultData).forEach(key => {
                 productId = resultData[key].productId;
                 productQuantity =  resultData[key].productQuantity;
-                getSeller(productId, productQuantity);
+                getSeller(productId, productQuantity, paymentID);
             });
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -824,4 +825,54 @@ function cancelOrder(orderID){
             window.location.href = "/crm/seller/orders";
         }
     });
+}
+
+function createRazorOrder()
+{
+    const totalamt = $('#totalamt').val() * 100;
+    let orderId = Math.floor((Math.random() * 100) + 1);
+    $(document).ready(function(){
+    var settings = {
+        "url": ""+url+"order/createOrder",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify({
+            "custId": sessionStorage.getItem("UserID"),
+            "amount": totalamt
+        }),
+    };
+    //creates new orderId everytime
+    $.ajax(settings).done(function (response) {
+        orderId=response.orderId;
+            console.log(response);
+            payOrder(orderId, totalamt);
+        });
+    });
+}
+
+function payOrder(orderId, totalamt) {
+    var options = {
+        "key": "rzp_test_6g933DekvXiS8x", // Enter the Key ID generated from the Dashboard
+        "amount": totalamt, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Qodemart",
+        "description": "Test Transaction",
+        "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            alert("Payment Is Successful");
+            placeOrder(response.razorpay_payment_id);
+        },
+        "theme": {
+            "color": "#D19C97"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+        alert(response.error.description);
+    });
+    rzp1.open();
+    e.preventDefault();
 }

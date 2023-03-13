@@ -8,7 +8,6 @@ import crm from './api/routes/crm';
 import webRoutes from './api/routes/webRoutes';
 import crmCustomer from './api/routes/customer';
 import crmSeller from './api/routes/seller';
-
 const app = express();
 
 // Built in middleware
